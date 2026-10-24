@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>bilseydin.tr – TikTok bağlantısı</title>
+<style>
+:root{--bg:#f6f2ea;--fg:#22201c;--mut:#6b655c;--card:#fff;--acc:#b5532a}
+@media (prefers-color-scheme:dark){:root{--bg:#17161a;--fg:#efe9df;--mut:#a59e93;--card:#222126;--acc:#e08a5a}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif;padding:24px 16px}
+main{max-width:560px;margin:0 auto}
+.card{background:var(--card);border-radius:14px;padding:20px;margin:16px 0}
+code{display:block;word-break:break-all;font-size:15px;padding:12px;border-radius:8px;background:var(--bg)}
+button{margin-top:10px;border:0;border-radius:8px;padding:10px 16px;background:var(--acc);color:#fff;font-size:15px}
+p.mut{color:var(--mut)}
+</style></head>
+<body><main>
+<h1>TikTok bağlantısı</h1>
+<div class="card" id="ok" hidden>
+  <p>Kodun hazır. Kopyala, GitHub'da <b>Actions → "TikTok hesabını bağla (bir kez)" → Run workflow</b> kutusuna yapıştır.</p>
+  <code id="code"></code>
+  <button onclick="navigator.clipboard.writeText(document.getElementById('code').textContent)">Kopyala</button>
+  <p class="mut">Kod birkaç dakika içinde geçerliliğini yitirir, hemen kullan.</p>
+</div>
+<div class="card" id="none">
+  <p>Bu sayfa TikTok'un yönlendirme adresidir. Bağlantıyı başlatmak için kurulum rehberindeki TikTok yetki bağlantısını aç.</p>
+</div>
+</main>
+<script>
+const q=new URLSearchParams(location.search), c=q.get('code');
+if(c){document.getElementById('code').textContent=c;document.getElementById('ok').hidden=false;document.getElementById('none').hidden=true;}
+</script>
+</body></html>

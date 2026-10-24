@@ -1,0 +1,64 @@
+name: Yayınla (Instagram + TikTok)
+
+on:
+  schedule:
+    - cron: '0 16 * * *'        # her gün 19:00 (Türkiye saati)
+  workflow_dispatch:
+    inputs:
+      episode:
+        description: 'Belirli bir bölüm (örn. 002-bayram). Boş bırakılırsa sıradaki hazır bölüm.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency: yayin
+
+jobs:
+  kontrol:
+    runs-on: ubuntu-latest
+    outputs:
+      bolum: ${{ steps.sec.outputs.bolum }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: sec
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, glob, os
+          want = "${{ github.event.inputs.episode }}".strip()
+          for m in sorted(glob.glob('episodes/*/meta.json')):
+              ep = m.split('/')[1]; st = json.load(open(m)).get('status')
+              if (want and ep == want and st != 'published') or (not want and st == 'ready'):
+                  print(f'bolum={ep}'); break
+          else:
+              print('bolum=')
+          PY
+      - run: echo "Seçilen bölüm -> '${{ steps.sec.outputs.bolum }}'" >> "$GITHUB_STEP_SUMMARY"
+
+  yayinla:
+    needs: kontrol
+    if: needs.kontrol.outputs.bolum != ''
+    runs-on: ubuntu-latest
+    environment: yayin            # onay gerekiyorsa GitHub burada sana sorar
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gönder
+        env:
+          EPISODE: ${{ needs.kontrol.outputs.bolum }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          TIKTOK_MODE: ${{ vars.TIKTOK_MODE }}
+          PLATFORMS: ${{ vars.PLATFORMS || 'instagram,tiktok' }}
+          IG_API_VERSION: ${{ vars.IG_API_VERSION }}
+        run: python3 publish/publish.py
+      - name: Durumu kaydet
+        if: always()
+        run: |
+          git config user.name "bilseydin-bot"; git config user.email "bot@users.noreply.github.com"
+          git add episodes/*/meta.json
+          git diff --cached --quiet || (git commit -m "yayın durumu: ${{ needs.kontrol.outputs.bolum }}" && git push)

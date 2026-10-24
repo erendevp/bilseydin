@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'LoraI';src:url(engine/fonts/LoraItalic.ttf);font-weight:400 700;font-style:normal}
+@font-face{font-family:'Lora';src:url(engine/fonts/Lora.ttf);font-weight:400 700}
+@font-face{font-family:'Inter';src:url(engine/fonts/Inter.ttf);font-weight:100 900}
+html,body{margin:0;padding:0;background:#000;overflow:hidden}
+#stage{position:relative;width:720px;height:1280px;overflow:hidden}
+#stage canvas{position:absolute;left:0;top:0}
+.ov{position:absolute;left:0;top:0;width:720px;height:1280px;pointer-events:none}
+#dip{background:#f1ede4;opacity:0}
+#dark{background:#141318;opacity:0}
+.sub{position:absolute;left:30px;width:660px;text-align:center;font-family:'LoraI';font-weight:400;font-size:29px;line-height:38px;color:#f6f3e8;
+ text-shadow:0 1px 5px rgba(0,0,0,.55),0 0 2px rgba(0,0,0,.35);opacity:0;top:808px}
+.title{position:absolute;left:60px;width:600px;text-align:center;font-family:'Lora';font-size:36px;line-height:46px;color:#f8f6ee;
+ text-shadow:0 1px 6px rgba(0,0,0,.5);opacity:0}
+#counter{position:absolute;left:40px;top:560px;opacity:0}
+#cap{font-family:'LoraI';font-size:16px;color:rgba(250,247,238,.82);text-shadow:0 1px 4px rgba(0,0,0,.6);margin-bottom:12px;letter-spacing:.2px}
+#agel{font-family:'Inter';font-weight:600;font-size:15px;letter-spacing:1.8px;color:rgba(245,247,250,.93);text-shadow:0 1px 4px rgba(0,0,0,.5)}
+#agen{font-family:'Lora';font-size:42px;line-height:48px;color:#fbfaf5;text-shadow:0 1px 5px rgba(0,0,0,.5);margin-top:2px}
+#lab{font-family:'Inter';font-weight:500;font-size:12.3px;letter-spacing:2.1px;color:rgba(232,235,238,.88);text-shadow:0 1px 4px rgba(0,0,0,.55);margin-top:14px;white-space:nowrap}
+#endT{top:540px}
+.small{position:absolute;left:0;width:720px;text-align:center;font-family:'Inter';font-weight:500;font-size:12.3px;letter-spacing:2.7px;color:rgba(170,168,175,1);opacity:0}
+</style></head>
+<body>
+<div id="stage">
+ <div class="ov" id="dip"></div>
+ <div class="ov" id="texts">
+  <div class="title" id="t0" style="top:272px"></div>
+  <div id="counter"><div id="cap"></div><div id="agel">YAŞIN</div><div id="agen">5</div><div id="lab"></div></div>
+  <div class="sub" id="sub"></div>
+ </div>
+ <div class="ov" id="dark">
+  <div class="title" id="endT"></div>
+  <div class="small" id="endS1" style="top:684px"></div>
+  <div class="small" id="endS2" style="top:707px"></div>
+ </div>
+</div>
+<script type="module">
+const ep = new URLSearchParams(location.search).get('ep');
+import(`./episodes/${ep}/scene.js`).catch(e => { window.LOADERR = String(e); console.error(e); });
+</script>
+</body></html>

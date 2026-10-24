@@ -1,0 +1,19 @@
+name: TikTok hesabını bağla (bir kez)
+
+on:
+  workflow_dispatch:
+    inputs:
+      kod:
+        description: 'docs/callback.html sayfasında gösterilen kod'
+        required: true
+
+jobs:
+  bagla:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: python3 publish/tokens.py tiktok-code "${{ github.event.inputs.kod }}"

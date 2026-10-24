@@ -1,0 +1,16 @@
+name: Instagram anahtarını yenile
+
+on:
+  schedule:
+    - cron: '0 6 1,15 * *'      # ayda iki kez (anahtar 60 gün geçerli)
+  workflow_dispatch:
+
+jobs:
+  yenile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: python3 publish/tokens.py ig-refresh
