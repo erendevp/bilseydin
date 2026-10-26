@@ -25,7 +25,9 @@ def piano(f, dur, vel):
     if off<n: rel[off:]=np.exp(-(t[off:]-t[off])*3.2)
     return y*att*rel
 def add(m, start, dur, vel, pan=0.0):
-    y=piano(midi(m),dur,vel); i=int(start*SR); j=min(N,i+len(y)); y=y[:j-i]
+    i=int(start*SR)
+    if i>=N: return
+    y=piano(midi(m),dur,vel); j=min(N,i+len(y)); y=y[:j-i]
     L[i:j]+=y*(1-pan)*0.7; R[i:j]+=y*(1+pan)*0.7
 def pad(ms, start, dur, vol):
     n=int(SR*dur); t=np.arange(n)/SR; y=np.zeros(n)
@@ -33,7 +35,9 @@ def pad(ms, start, dur, vol):
         f=midi(m)
         for d in (-0.08,0.08): y+=np.sin(2*np.pi*f*(1+d/100)*t)+0.25*np.sin(2*np.pi*2*f*t)
     env=np.minimum(1,t/1.2)*np.minimum(1,(dur-t)/1.2)
-    y*=env*vol; i=int(start*SR); j=min(N,i+n)
+    y*=env*vol; i=int(start*SR)
+    if i>=N: return
+    j=min(N,i+n)
     L[i:j]+=y[:j-i]; R[i:j]+=y[:j-i]
 bpm=66; beat=60/bpm; bar=4*beat
 # Am F C G | Am F C E | F G Am Am ... (A minor)
