@@ -16,8 +16,10 @@ Yayınlama işini Claude değil, GitHub Actions (`.github/workflows/yayinla.yml`
 
 3. **Senaryo** (Türkçe, 75–95 sn):
    - Açılış başlığı ilk 3,5 sn ekranda: bölüme özel bir soru ("Ya son kez olduğunu bilseydin?" ana çizgi; varyasyon serbest).
-   - 6–8 sahne. Her sahnede: yıl · yer notu (örn. "1999 · Köy evi"), `YAŞIN` + yaş, sayaç `KALAN …: 1` →
-     o an yaşandığında `0` (turuncu parlama). Yetişkin sahnelerinde `KALAN SON KEZLER: ?`.
+   - 6–8 sahne. Her sahnede yıl/yer notu ve bir sayaç olur. Sayaç biçimi konuya göre seçilir:
+     001'deki `YAŞIN` + `KALAN …: 1 → 0`, 002'deki `KALAN ZİYARET` geri sayımı, ya da 003'teki
+     `YAŞIN` → `GÖRÜŞMEDİĞİNİZ GÜN` (sonda 0'a düşer). Değişen sayılar turuncu parlar.
+   - Telefon mesajı sahnesi gerekiyorsa 003'teki `makeChat` kartını kullan (emoji kullanma; font desteklemiyor).
    - Her sahnede 1–2 alt yazı; en fazla 2 satır, satır başına ~32 karakter. Sade, içten, klişe kaçmayan cümleler.
      Okuma süresi: her alt yazı en az 3,5 sn ekranda.
    - Son sahne umutlu bir eylemle biter ("Git, bir tane daha yaşa." çizgisinde, her bölümde farklı söyleyiş).
@@ -25,7 +27,9 @@ Yayınlama işini Claude değil, GitHub Actions (`.github/workflows/yayinla.yml`
    - Türkiye'ye özgü, evrensel anılar. **Yasak**: gerçek kişiler, markalar/logolar, siyasi semboller, dini değerleri
      küçümseme, şiddet, ölümün açıkça gösterilmesi (yokluk sadece boş sandalye/boş sofra gibi imalarla anlatılır).
 
-4. **Sahne kodu**: `episodes/001-son-kez/scene.js` dosyasını yeni klasöre kopyala ve değiştir.
+4. **Sahne kodu**: konuya en yakın bölümün `scene.js` dosyasını yeni klasöre kopyala ve değiştir
+   (001: aile/son kezler, 002: verandalı ev `H` seti + salıncak, 003: mahalle sokağı + iki mesaj kartı).
+   Dikey (9:16) kadraj dardır: iki karakter aynı karede olacaksa kamerayı aralarındaki çizgiye dik değil, onlarla aynı hizaya koy.
    - Hazır setler: `A` apartman + balkon + avlu, `B` dede evi + verandalı + çardak altında kahvaltı masası,
      `C` mahalle sokağı (akşam), `E` otogar. Yeni set gerekiyorsa aynı `box()` diliyle ekle (düz renk, köşeli, sade).
    - Hazır karakterler `C('ad', {...})` ile; aynı kişinin farklı yaşları için ayrı karakter tanımla. Kahraman: mavi tişört.
