@@ -6,7 +6,7 @@ Yeni fikir eklemek için listenin sonuna `- [sırada] ...` satırı yazman yeter
 - [yayında 001] Ya son kez olduğunu bilseydin? — omuz, bayram harçlığı, mahalle maçı, balkon çağrısı, pazar kahvaltısı, otogar
 - [yayında 002] Eve kaç kez daha gideceksin? — veranda ışığı, basamakta bekleyen baba, salıncak, mesaj, kapıda sarılma
 - [hazır 003] Çocukluk arkadaşın şimdi nerede? — sokakta top, ikiye bölünen gofret, ayrı liseler, kısalan mesajlar, bayramda buluşma
-- [sırada] Okul — son teneffüs zili, karne günü, sıra arkadaşıyla son kez aynı sırada, öğretmenin son "aferin"i, mezuniyet fotoğrafı
+- [hazır 004] Okul — son teneffüs zili, karne günü, sıra arkadaşıyla son kez aynı sırada, öğretmenin son "aferin"i, mezuniyet fotoğrafı
 - [sırada] Dede ve nine — dedeyle son tavla, ninenin son masalı, köy evinde son yaz, tandır ekmeği, emekli maaşından harçlık
 - [sırada] Ramazan — davulcuyla son sahur, iftar sofrasında herkesin son kez bir arada olduğu akşam, pide kuyruğu, teravih dönüşü
 - [sırada] Kardeşler — aynı odayı son kez paylaşmak, son yastık kavgası, kardeşin evlenip gittiği gün, kapının son kez çalınması
